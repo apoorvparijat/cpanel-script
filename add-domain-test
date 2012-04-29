@@ -1,0 +1,21 @@
+#!/bin/bash -i
+if [ ! $@ ]
+then
+	echo "No Input given."
+	exit 1
+fi
+if [ -f "$apache_path/sites-available/$1" ]
+then 
+	echo "Test:: Added in sites-available"
+	#if [ -L "/etc/apache2/sites-enabled/*$1*" ]
+	#then 
+	#	echo "Test:: Site is enabled."
+	#fi
+	for file in `ls $apache_path/sites-enabled/`
+	do
+		if [ `echo $file | egrep "*$1*"` ]
+		then
+			echo "Test:: Site is enabled."
+		fi
+	done
+fi

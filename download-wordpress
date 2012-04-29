@@ -1,0 +1,2 @@
+wget -O downloads/latest.zip http://wordpress.org/latest.zip 
+unzip -d downloads downloads/latest.zip

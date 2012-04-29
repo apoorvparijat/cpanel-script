@@ -1,0 +1,16 @@
+#!/bin/bash -i
+if [ $# -ne 3 ]
+then
+	echo "Not enough parameters."
+	echo "Usage: sudo ./add-user username password home-folder"
+	exit 1
+fi
+
+# TODO run useradd
+echo "Adding user."
+useradd -md /home/www/$3/ $1 -p $2
+echo "Creating directories .."
+mkdir -pv /home/www/$3/htdocs /home/www/$3/cgi-bin /home/www/$3/logs
+touch /home/www/$3/logs/error.log
+touch /home/www/$3/logs/access.log 
+echo "Done setting up directories."

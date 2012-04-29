@@ -1,0 +1,13 @@
+if [ $# -eq 0 ]
+then
+	echo "No domain given."
+	echo "Usage: sudo ./install-wordpress domain-name [directory]"
+	exit 1
+fi
+./download-wordpress
+if [ $2 ]
+then
+	mv downloads/wordpress/* /home/www/$1/htdocs/$2/
+else
+	mv downloads/wordpress/* /home/www/$1/htdocs/
+fi

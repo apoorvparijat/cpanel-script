@@ -1,0 +1,28 @@
+#!/bin/bash -i
+if [ ! $@ ]
+then
+	echo "No domain to add"
+	exit 1
+fi
+apache_path="/etc/apache2"
+blah=`. add-domain-test $1`
+if [ "$blah" ]
+then
+	echo "Domain already added."
+	exit 1
+fi
+
+# Run ruby script to create file.
+# TODO Create User Account
+# TODO Create home directory
+# TODO Restart apache2 and vsftpd
+create_conf_file="ruby create-conf.rb $1 $apache_path"
+$create_conf_file
+ln -s $apache_path/sites-available/$1 $apache_path/sites-enabled/
+. add-domain-test $1
+echo "Enter ftp username:"
+read username
+echo "Enter ftp password:"
+read password
+. add-user $username $password $1
+. restart-servers
