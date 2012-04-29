@@ -1,0 +1,42 @@
+dbuser="root"
+dbpass="shonen"
+dbhost="localhost"
+dbname="wordpress"
+
+if [ $# -ne 1 ]
+then
+        echo "No input given."
+        echo "Usage: sudo ./config-wordpress database-prefix"
+        exit 1
+fi
+dbprefix=$1
+
+cat <<WPCONFIG > wp-config.php
+
+<?php
+
+define('DB_NAME', '$dbname');
+define('DB_USER', '$dbuser');
+define('DB_PASSWORD', '$dbpass');
+define('DB_HOST', '$dbhost');
+define('DB_CHARSET', 'utf8');
+define('DB_COLLATE', '');
+\$table_prefix  = 'wp_${dbprefix}_';
+
+define('AUTH_KEY',         '![c)^sK3jW|+!L-QU*gRu0BZOb_m+WRkRaYxOJlrB;T>A3o4p^~e\`&zVzz~V1r!H');
+define('SECURE_AUTH_KEY',  'm||_Fz(PY&O Po!cyeUTad5~D67%jI(q3eQVc1BM4k52Z(?cCs )c!Xj!iParnQ8');
+define('LOGGED_IN_KEY',    'SA{)[+s{:Fu*A9@QH8lY]HNW +PX!T_m7xvNA8/>u~*\`>(0u6.sY0j|Kp<s(ZDsh');
+define('NONCE_KEY',        'j<0c*qEM|$)m[f1<Zn|.%VnpB~w;$I@ShK+%|+MF\`5a4k= E%CBX &:kYHIU|+Ag');
+define('AUTH_SALT',        '@3+:c/ r|WI39?X()J.PdA:]3G$>. am-7GsC\`w!.\`g&E*bi2dVG=28l_Fuc#H=d');
+define('SECURE_AUTH_SALT', '4cY}T?8ZPSL|.B0PL|j)3Tl]Kpe/_]q4SWpwAmz5qU=]atqKkKG2i%|D\`>J\`g0)@');
+define('LOGGED_IN_SALT',   '2M[<~-I~1u\`e1>(+Xoq>.w[h&ct6{[m!kpTQ<I+n{cL{Hs%gP]~|i]o}Tz0zp)Z5');
+define('NONCE_SALT',       'QT5?#,9PcxXl?%T<%kCz:MCot&|sL-m1*IDNaK!aD{7 $8:aaF7B6}-+1_S|4H}]');
+define('WPLANG', '');
+define('WP_DEBUG', false);
+if ( !defined('ABSPATH') )
+	define('ABSPATH', dirname(__FILE__) . '/');
+
+
+require_once(ABSPATH . 'wp-settings.php');
+?>
+WPCONFIG
