@@ -23,6 +23,7 @@
         CustomLog /home/www/www.example.com/logs/access.log combined
 </VirtualHost>
 =end
+# TODO Add ServerAlias directive
 if ARGV.length == 0
   puts "No input given."
   Process.exit
